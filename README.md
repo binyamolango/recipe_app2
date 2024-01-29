@@ -69,7 +69,7 @@ Clone this repository to your desired folder:
 ```sh
   cd my-preferred-folder
   
-  git clone https://github.com/binyamolango/recipe_app.git
+  git clone https://github.com/binyamolango/recipe_app2.git
 
 ```
 
@@ -78,7 +78,7 @@ Clone this repository to your desired folder:
 Install this project with:
 
 ```sh
-  cd recipe_app
+  cd recipe_app2
   
   bundle install
 ```
