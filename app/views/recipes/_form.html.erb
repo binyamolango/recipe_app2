@@ -22,6 +22,23 @@
   </div>
 
   <div>
+    <%= form.label :preparation_time, "Preparation time (in hour)", style: "display: block" %>
+    <%= form.text_field :preparation_time, placeholder: "1.5" %>
+  </div>
+
+  <div>
+    <%= form.label :cooking_time, "Cooking time (in hour)", style: "display: block" %>
+    <%= form.text_field :cooking_time, placeholder: "1" %>
+  </div>
+
+  <div>
+    <%= form.radio_button :public, true %>
+    <%= form.label :public, "Public" %>
+    <%= form.radio_button :public, false %>
+    <%= form.label :public, "Private" %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
