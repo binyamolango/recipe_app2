@@ -63,6 +63,9 @@ group :development do
   # gem "spring"
   gem 'devise'
   gem 'letter_opener'
+  gem 'bootstrap', '~> 5.3.2'
+  gem 'dartsass-sprockets'
+  gem 'jquery-rails'
 end
 
 group :test do
