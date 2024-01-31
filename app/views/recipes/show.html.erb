@@ -1,56 +1,86 @@
+<div class="container">
 <% if @recipe.public || (can?(:update, Recipe) && @recipe.user_id == current_user.id) %>
-  <div>
-    <h1 class="recipe_name"><%= @recipe.name %></h1>
+  <h1 class="recipe_name"><%= @recipe.name %></h1>
 
-    <p class="recipe_time">
-      Preparation time: 
+  <div class="recipe_detail_cont">
+    <div class="recipe_time">
+      <p class="recipe_preparation_time">
+        Preparation time: 
+          <% if @recipe.preparation_time %>
+            <%= @recipe.preparation_time %> <%= @recipe.preparation_time > 1 ? "hours" : "hour" %>
+          <% end %>
+      </p>
+      <p class="recipe_cooking_time">
+        Cooking time: 
         <% if @recipe.preparation_time %>
-          <%= @recipe.preparation_time %> <%= @recipe.preparation_time > 1 ? "hours" : "hour" %>
+          <%= @recipe.cooking_time %> <%= @recipe.cooking_time > 1 ? "hours" : "hour" %>
         <% end %>
-    </p>
-    <p class="recipe_time">
-      Cooking time: 
-      <% if @recipe.preparation_time %>
-        <%= @recipe.cooking_time %> <%= @recipe.cooking_time > 1 ? "hours" : "hour" %>
-      <% end %>
-    </p>
+      </p>
 
-    <% if can?(:update, Recipe) %>
-      <%= form_with model: @recipe, id: "recipe_form", method: :patch do |f| %>
-        <div class="form-check form-switch">
-          <%= f.check_box :public, class: "form-check-input", id: "flexSwitchCheckChecked" %>
-          <%= f.label :public, for: "flexSwitchCheckChecked", class: "form-check-label"  %>
+      <p class="recipe_steps">Steps go here...</p>
+    </div>
+
+    <div class="recipe_switch">
+      <% if can? :update, @recipe %>
+        <div class="public-button-container">
+          <%= button_to(@recipe.public? ? "Make Private" : "Make Public", toggle_recipe_public_path(@recipe), method: :put) %>
         </div>
-
-        <%= f.submit "Update Recipe", id: "submit_button", style: "display: none;" %>
       <% end %>
-    <% end %>
+      <% if can?(:update, Recipe) %>
+        <%= form_with model: @recipe, id: "recipe_form", method: :patch do |f| %>
+          <div class="form-check form-switch">
+            <%= f.check_box :public, class: "form-check-input", id: "flexSwitchCheckChecked" %>
+            <%= f.label :public, for: "flexSwitchCheckChecked", class: "form-check-label"  %>
+          </div>
 
+          <%= f.submit "Update Recipe", id: "submit_button", style: "display: none;" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="generate_btn">
     <% if @recipe.user_id == current_user.id %>
+    <%= link_to 'Generate Shopping List', shopping_list_index_path(recipe_id: @recipe.id) %>
       <%= button_to "Add ingredient", new_recipe_recipe_food_path(@recipe), method: :get %>
     <% end %>
+  </div>
 
-    <% @recipe_foods.each do |recipe_food| %>
-      <%= render recipe_food %>
+  <div class="line"></div>
 
-      <% if @recipe.id == recipe_food.recipe_id %>
-
-        <p>Food: <%= recipe_food.food.name %></p>
-        <p>Quantity: <%= recipe_food.quantity %></p>
-        <p>Value: $<%= recipe_food.value(recipe_food.food_id, recipe_food.id) %></p>
-        <% if @recipe.user_id == current_user.id %>
-          <%= link_to "Edit this recipe food", edit_recipe_recipe_food_path(@recipe, recipe_food) %>
+  <div class="recipe_foods">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Food</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Value</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <% @recipe_foods.each do |recipe_food| %>
+          <%= render recipe_food %>
+          <tr>
+            <% if @recipe.id == recipe_food.recipe_id %>
+              <th scope="row"><%= recipe_food.food.name %></th>
+              <td><%= recipe_food.quantity %></td>
+              <td>$<%= recipe_food.value(recipe_food.food_id, recipe_food.id) %></td>
+              <td>
+                <% if @recipe.user_id == current_user.id %>
+                  <%= link_to "Modify", edit_recipe_recipe_food_path(@recipe, recipe_food) %>
+                  <%= button_to 'Remove', recipe_recipe_food_path(@recipe, recipe_food), method: :delete %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
         <% end %>
-        <% if @recipe.user_id == current_user.id %>
-          <%= button_to "Destroy this recipe food", recipe_recipe_food_path(@recipe, recipe_food), method: :delete %>
-        <% end %>
-
-      <% end %>
-    <% end %>
-
-    <%= link_to "Back to recipes", recipes_path %>
+      </tbody>
+    </table>
+    <%= link_to "Back to recipe list", recipes_path %>
   </div>
 
 <% else %>
-  <h2>This recipe is private</h2>
+  <h2 class="recipe_name">This recipe is private</h2>
 <% end %>
+</div>

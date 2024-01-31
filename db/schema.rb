@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_07_115258) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_09_160751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "foods", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "measurement_unit", default: "grams", null: false
-    t.decimal "price", precision: 5, scale: 2
-    t.decimal "quantity", precision: 5, scale: 2
+    t.decimal "price"
+    t.decimal "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -27,20 +27,22 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_07_115258) do
   end
 
   create_table "recipe_foods", force: :cascade do |t|
-    t.decimal "quantity", precision: 5, scale: 2
+    t.decimal "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "recipe_id", null: false
     t.bigint "food_id", null: false
+    t.bigint "user_id", null: false
     t.index ["food_id"], name: "index_recipe_foods_on_food_id"
     t.index ["recipe_id"], name: "index_recipe_foods_on_recipe_id"
+    t.index ["user_id"], name: "index_recipe_foods_on_user_id"
   end
 
   create_table "recipes", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.text "description"
-    t.decimal "preparation_time", precision: 5, scale: 2
-    t.decimal "cooking_time", precision: 5, scale: 2
+    t.decimal "preparation_time"
+    t.decimal "cooking_time"
     t.boolean "public", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -62,6 +64,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_07_115258) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -69,5 +72,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_07_115258) do
   add_foreign_key "foods", "users", on_delete: :cascade
   add_foreign_key "recipe_foods", "foods", on_delete: :cascade
   add_foreign_key "recipe_foods", "recipes", on_delete: :cascade
+  add_foreign_key "recipe_foods", "users"
   add_foreign_key "recipes", "users", on_delete: :cascade
 end
