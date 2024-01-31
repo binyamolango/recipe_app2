@@ -3,8 +3,8 @@ class CreateFoods < ActiveRecord::Migration[7.1]
     create_table :foods do |t|
       t.string :name, null: false, default: ""
       t.string :measurement_unit, null: false, default: "grams"
-      t.decimal :price, precision: 5, scale: 2
-      t.decimal :quantity, precision: 5, scale: 2
+      t.decimal :price
+      t.decimal :quantity
 
       t.timestamps
     end
