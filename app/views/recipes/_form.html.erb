@@ -1,27 +1,44 @@
 <%= form_with(model: recipe) do |form| %>
-    <% if recipe.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
-  
-        <ul>
-          <% recipe.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
-    <div>
-      <%= form.label :title, style: "display: block" %>
-      <%= form.text_field :title %>
+  <% if recipe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% recipe.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
-  
-    <div>
-      <%= form.label :content, style: "display: block" %>
-      <%= form.text_area :content %>
-    </div>
-  
-    <div>
-      <%= form.submit %>
-    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :preparation_time, "Preparation time (in hour)", style: "display: block" %>
+    <%= form.text_field :preparation_time, placeholder: "1.5" %>
+  </div>
+
+  <div>
+    <%= form.label :cooking_time, "Cooking time (in hour)", style: "display: block" %>
+    <%= form.text_field :cooking_time, placeholder: "1" %>
+  </div>
+
+  <div>
+    <%= form.radio_button :public, true %>
+    <%= form.label :public, "Public" %>
+    <%= form.radio_button :public, false %>
+    <%= form.label :public, "Private" %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
 <% end %>
