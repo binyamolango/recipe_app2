@@ -6,7 +6,9 @@
     <p>
       <%= link_to "Show this recipe", recipe %>
     </p>
-    <%= button_to "Destroy this recipe", recipe, method: :delete %>
+    <% if recipe.user_id == current_user.id %>
+      <%= button_to "Destroy this recipe", recipe, method: :delete %>
+    <% end %>
   <% end %>
 </div>
 

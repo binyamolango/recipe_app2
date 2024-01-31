@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  resources :foods
   resources :recipes do
     resources :recipe_foods
   end
-  resources :foods
   devise_for :users, :controllers => { :confirmations => 'devise/confirmations' }
 
   devise_scope :user do

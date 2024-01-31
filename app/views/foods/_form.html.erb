@@ -12,6 +12,29 @@
   <% end %>
 
   <div>
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.label "Measurement unit", style: "display: block" %>
+      <%= form.radio_button :measurement_unit, "grams" %>
+      <%= form.label :measurement_unit, "grams" %>
+      <%= form.radio_button :measurement_unit, "units" %>
+      <%= form.label :measurement_unit, "units" %>
+    </div>
+
+    <div>
+      <%= form.label :price, "Unit price", style: "display: block" %>
+      <%= form.text_field :price, placeholder: "15" %>
+    </div>
+
+    <div>
+      <%= form.label :quantity, style: "display: block" %>
+      <%= form.text_field :quantity, placeholder: "5" %>
+    </div>
+
     <%= form.submit %>
   </div>
 <% end %>

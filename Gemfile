@@ -66,6 +66,7 @@ group :development do
   gem 'bootstrap', '~> 5.3.2'
   gem 'dartsass-sprockets'
   gem 'jquery-rails'
+  gem 'cancancan'
 end
 
 group :test do
