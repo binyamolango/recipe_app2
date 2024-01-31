@@ -1,0 +1,28 @@
+<div class="container">
+  <% if @public && @public.length > 0 %>
+    <div>
+      <h1>Public Recipes</h1>
+    </div>
+    <table class="table table-striped">
+      <tr>
+        <th scope="col">Recipe Name</th>
+        <th scope="col">By</th>
+        <th scope="col">Total Food Items</th>
+        <th scope="col">Total Price</th>
+      </tr>
+      <% @public.each do |recipe| %>
+        <tr class="table-group-divider">
+          <td>
+            <%= link_to recipe.name, recipe_path(recipe) %>
+          </td>
+          <td>by: <%= recipe.user.name %></td>
+          <td><%= recipe.recipe_foods.length %></td>
+          <% total_price = recipe.recipe_foods.sum { |recipe_food| recipe_food.value(recipe_food.food_id, recipe_food.id) } %>
+          <td>$<%= total_price %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <h2>No Public Recipes in database</h2>
+  <% end %>
+</div>

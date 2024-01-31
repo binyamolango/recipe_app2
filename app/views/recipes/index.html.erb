@@ -1,15 +1,13 @@
-<h1>Recipes</h1>
+<div class="container">
 
-<div id="recipes">
-  <% @recipes.each do |recipe| %>
-    <%= render recipe %>
-    <p>
-      <%= link_to "Show this recipe", recipe %>
-    </p>
-    <% if recipe.user_id == current_user.id %>
-      <%= button_to "Destroy this recipe", recipe, method: :delete %>
+  <div class="new_recipe_btn">
+    <%= link_to "Add recipe", new_recipe_path, class: "btn btn-primary" %>
+  </div>
+
+  <div id="recipes">
+    <% @recipes.each do |recipe| %>
+      <%= render recipe %>
     <% end %>
-  <% end %>
-</div>
+  </div>
 
-<%= link_to "New recipe", new_recipe_path %>
+</div>
