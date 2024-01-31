@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
+  resources :foods
+  resources :recipes do
+    resources :recipe_foods
+  end
   devise_for :users, :controllers => { :confirmations => 'devise/confirmations' }
 
   devise_scope :user do
     get '/users/sign_out', to: 'devise/sessions#destroy'
     root to: 'devise/sessions#new'
   end
-
-  resources :recipes
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

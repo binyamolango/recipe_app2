@@ -1,21 +1,56 @@
-<p style="color: green"><%= notice %></p>
+<% if @recipe.public || (can?(:update, Recipe) && @recipe.user_id == current_user.id) %>
+  <div>
+    <h1 class="recipe_name"><%= @recipe.name %></h1>
 
-<div>
-  <h1 class="recipe_name"><%= @recipe.name %></h1>
-
-  <p class="recipe_time">
-    Preparation time: 
+    <p class="recipe_time">
+      Preparation time: 
+        <% if @recipe.preparation_time %>
+          <%= @recipe.preparation_time %> <%= @recipe.preparation_time > 1 ? "hours" : "hour" %>
+        <% end %>
+    </p>
+    <p class="recipe_time">
+      Cooking time: 
       <% if @recipe.preparation_time %>
-        <%= @recipe.preparation_time %> <%= @recipe.preparation_time > 1 ? "hours" : "hour" %>
+        <%= @recipe.cooking_time %> <%= @recipe.cooking_time > 1 ? "hours" : "hour" %>
       <% end %>
-  </p>
-  <p class="recipe_time">
-    Cooking time: 
-    <% if @recipe.preparation_time %>
-      <%= @recipe.cooking_time %> <%= @recipe.cooking_time > 1 ? "hours" : "hour" %>
+    </p>
+
+    <% if can?(:update, Recipe) %>
+      <%= form_with model: @recipe, id: "recipe_form", method: :patch do |f| %>
+        <div class="form-check form-switch">
+          <%= f.check_box :public, class: "form-check-input", id: "flexSwitchCheckChecked" %>
+          <%= f.label :public, for: "flexSwitchCheckChecked", class: "form-check-label"  %>
+        </div>
+
+        <%= f.submit "Update Recipe", id: "submit_button", style: "display: none;" %>
+      <% end %>
     <% end %>
-  </p>
 
+    <% if @recipe.user_id == current_user.id %>
+      <%= button_to "Add ingredient", new_recipe_recipe_food_path(@recipe), method: :get %>
+    <% end %>
 
-  <%= link_to "Back to recipes", recipes_path %>
-</div>
+    <% @recipe_foods.each do |recipe_food| %>
+      <%= render recipe_food %>
+
+      <% if @recipe.id == recipe_food.recipe_id %>
+
+        <p>Food: <%= recipe_food.food.name %></p>
+        <p>Quantity: <%= recipe_food.quantity %></p>
+        <p>Value: $<%= recipe_food.value(recipe_food.food_id, recipe_food.id) %></p>
+        <% if @recipe.user_id == current_user.id %>
+          <%= link_to "Edit this recipe food", edit_recipe_recipe_food_path(@recipe, recipe_food) %>
+        <% end %>
+        <% if @recipe.user_id == current_user.id %>
+          <%= button_to "Destroy this recipe food", recipe_recipe_food_path(@recipe, recipe_food), method: :delete %>
+        <% end %>
+
+      <% end %>
+    <% end %>
+
+    <%= link_to "Back to recipes", recipes_path %>
+  </div>
+
+<% else %>
+  <h2>This recipe is private</h2>
+<% end %>

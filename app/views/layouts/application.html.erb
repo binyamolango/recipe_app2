@@ -3,14 +3,19 @@
   <head>
     <title>RecipeApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag 'switch' %>
   </head>
 
   <body>
+    <p style="color: green"><%= notice %></p>
+    <%= alert %>
     <%= yield %>
   </body>
 </html>
