@@ -1,0 +1,93 @@
+@import "bootstrap";
+
+a:active {
+  text-decoration: underline;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1080px;
+}
+
+// recipe#index
+
+.recipe_cont,
+.recipe_detail_cont,
+.generate_btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe_name h3 a {
+  text-decoration: none;
+}
+
+.recipe_name h3 {
+  margin-bottom: 0.6em;
+}
+
+.recipe_desc {
+  width: 60%;
+}
+
+.new_recipe_btn,
+.new_food_btn {
+  text-align: right;
+  margin-bottom: 3em;
+}
+
+// recipe#show
+
+.recipe_detail_cont,
+.food_price {
+  margin: 1.5em 0 2.5em 0;
+}
+
+.generate_btn,
+.update_food_btn {
+  margin: 1.5em 0 1.5em 0;
+}
+
+.line {
+  border: 2px solid black;
+  border-radius: 0 50% 0 50%;
+}
+
+.recipe_foods {
+  margin: 3em 0;
+}
+
+.quantity_input {
+  margin-top: 1.125em;
+}
+
+.devise-container {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+  background-color: var(--primary-color);
+  max-width: 40%;
+  margin: 10% auto 0;
+  border-radius: 8px;
+  box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.3);
+}
+
+.devise-container input {
+  width: 250px;
+  display: flex;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1.1rem;
+}
+
+.radio_field input {
+  display: inline;
+  width: auto;
+}

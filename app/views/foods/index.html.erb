@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="new_food_btn">
+    <%= link_to "Add food", new_food_path, class: "btn btn-primary" %>
+  </div>
+
+  <div id="foods">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Food</th>
+          <th scope="col">Measurement</th>
+          <th scope="col">Unit price</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <% @foods.each do |food| %>
+          <%= render food %>
+          <tr>
+            <th scope="row"><%= link_to food.name, food %></th>
+            <td><%= food.measurement_unit %></td>
+            <td>$<%= food.price %></td>
+            <td>
+              <% if food.user_id == current_user.id %>
+                <%= link_to "Delete", food, method: :delete %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

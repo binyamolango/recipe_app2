@@ -1,0 +1,46 @@
+<div class="container">
+<h1>Shopping List for <%= current_user.name %></h1>
+
+<div>
+    <h3>Food items to buy: <span><%= @recipe_foods.filter {|r| r.quantity > r.food.quantity}.length %></span></h3>
+    <h3>Total value of food needed: 
+        <span>
+            $<%= @recipe_foods.map { |r| (r.quantity > r.food.quantity) ? r.food.price * (r.quantity - r.food.quantity) : 0 }.sum %>
+        </span>
+    </h3>
+</div>
+<% if @shopping_list.empty? %>
+<p>No food added to the inventory yet.</p>
+    <thead>
+        <tr>
+            <th>Food</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+<% else %>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Food</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Amount</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <% @recipe_foods.each do |recipe|%>
+        <% if (recipe.quantity > recipe.food.quantity) %>
+            <tr>
+                <td><%= recipe.food.name %> (<%= recipe.food.quantity %>)</td>
+                <td><%= recipe.quantity %> <%= recipe.food.measurement_unit %></td>
+                <td>$<%= recipe.food.price %></td>
+                <td>$<%= recipe.food.price.to_i * (recipe.quantity - recipe.food.quantity) %></td>
+            </tr>
+        <% end %>
+    <% end %>
+</tbody>
+</table>
+<% end %>
+</div>

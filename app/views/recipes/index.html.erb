@@ -1,0 +1,13 @@
+<div class="container">
+
+  <div class="new_recipe_btn">
+    <%= link_to "Add recipe", new_recipe_path, class: "btn btn-primary" %>
+  </div>
+
+  <div id="recipes">
+    <% @recipes.each do |recipe| %>
+      <%= render recipe %>
+    <% end %>
+  </div>
+
+</div>

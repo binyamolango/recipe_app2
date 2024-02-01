@@ -1,0 +1,41 @@
+<%= form_with(model: recipe) do |form| %>
+  <% if recipe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% recipe.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <form>
+    <div class="row mb-3">
+      <%= form.label :name, "Recipe name", class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= form.label :description, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= form.text_area :description, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= form.label :preparation_time, "Preparation time (in hour)", class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= form.text_field :preparation_time, placeholder: "1.5", class: "form-control" %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= form.label :cooking_time, "Cooking time (in hour)", class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= form.text_field :cooking_time, placeholder: "1", class: "form-control" %>
+      </div>
+    </div>
+    <%= form.submit "Create recipe", class: "btn btn-primary" %>
+  </form>
+<% end %>

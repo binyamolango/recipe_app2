@@ -1,0 +1,14 @@
+<div id="<%= dom_id recipe %>" class="card mb-3">
+  <div class="card-body recipe_cont">
+    <div class="recipe_name">
+      <h3 class="card-title"><%= link_to recipe.name, recipe %></h3>
+      <% if recipe.user_id == current_user.id %>
+        <%= button_to "Remove", recipe, method: :delete, class: "btn btn-outline-danger" %>
+      <% end %>
+    </div>
+
+    <div class="recipe_desc">
+      <p class="card-text"><%= recipe.description %></p>
+    </div>
+  </div>
+</div>
