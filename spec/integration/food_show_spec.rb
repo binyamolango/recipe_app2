@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Food index page', type: :feature do
+RSpec.describe 'Food show page', type: :feature do
   before :each do
     @user1 = User.create!(name: 'Tajemouti', email: 'tajemouti@gmail.com', password: '123456')
     @food = Food.new(name: "Apple", measurement_unit: "grams", price: 20, quantity: 1000, user: @user)
@@ -12,7 +12,7 @@ RSpec.describe 'Food index page', type: :feature do
   end
 
   it 'should have the following content' do
-    visit '/foods'
+    visit '/foods/1'
     expect(page).to have_content('Food list')
     expect(page).to have_link('Food')
     expect(page).to have_link('Recipe list')
