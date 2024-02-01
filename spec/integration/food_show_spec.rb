@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Food show page', type: :feature do
   before :each do
     @user1 = User.create!(name: 'Tajemouti', email: 'tajemouti@gmail.com', password: '123456')
-    @food = Food.new(name: "Apple", measurement_unit: "grams", price: 20, quantity: 1000, user: @user)
+    @food = Food.new(name: 'Apple', measurement_unit: 'grams', price: 20, quantity: 1000, user: @user)
 
     visit '/users/sign_in'
     fill_in 'Email', with: 'tajemouti@gmail.com'
