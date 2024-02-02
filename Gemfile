@@ -61,11 +61,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem 'spring'
-  gem 'bootstrap', '~> 5.0'
-  gem 'cancancan'
-  gem 'dartsass-sprockets'
-  gem 'jquery-rails'
-  gem 'letter_opener'
 end
 
 group :test do
@@ -77,3 +72,9 @@ group :test do
 end
 
 gem 'devise'
+gem 'bootstrap', '~> 5.0'
+gem 'cancancan'
+gem 'letter_opener'
+gem 'dartsass-sprockets'
+gem 'jquery-rails'
+
