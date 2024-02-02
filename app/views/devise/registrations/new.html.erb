@@ -21,7 +21,7 @@
     <div class="row mb-3">
       <%= f.label :password, class: "col-sm-2 col-form-label" %>
       <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %> characters min)</em>
       <% end %>
       <div class="col-sm-10">
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
